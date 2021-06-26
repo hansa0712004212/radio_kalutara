@@ -30,7 +30,7 @@ const Radio = ({ navigation }) => {
     <View style={styles.container}>
       <WebView ref={webRef} source={{ uri: Urls.STREAMING }} mediaPlaybackRequiresUserAction={false} androidLayerType={"hardware"}
         mixedContentMode={"always"} overScrollMode={"never"} contentMode={"mobile"} scrollEnabled={false}
-        startInLoadingState={true} renderLoading={() => <BouncingLoader />} allowsFullscreenVideo={true} />
+        startInLoadingState={true} renderLoading={() => <View style={styles.overlayNoInternet}><BouncingLoader /></View>} allowsFullscreenVideo={true} />
       {!netInfo.isConnected &&
         <View style={styles.overlayNoInternet}>
           <NoInternetConnection backgroundColor={Colors.BLUE_SKY} />

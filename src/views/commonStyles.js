@@ -1,5 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { Colors } from "../constants";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   container: {
@@ -38,10 +41,10 @@ const styles = StyleSheet.create({
     color: Colors.WHITE
   },
   overlayNoInternet: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    position: "absolute"
+    width: windowWidth,
+    height: windowHeight,
+    position: "absolute",
+    backgroundColor: Colors.WHITE
   }
 });
 
