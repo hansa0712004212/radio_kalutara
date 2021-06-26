@@ -1,9 +1,10 @@
 import { useNetInfo } from "@react-native-community/netinfo";
-import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { View } from "react-native";
 import "react-native-gesture-handler";
 import changeNavigationBarColor from "react-native-navigation-bar-color";
 import { WebView } from "react-native-webview";
+import { BouncingLoader } from "../../components";
 import { Colors, Urls } from "../../constants";
 import { NoInternetConnection } from "../../container";
 import styles from "../commonStyles";
@@ -11,7 +12,6 @@ import styles from "../commonStyles";
 const Radio = ({ navigation }) => {
   const webRef = useRef(null);
   const netInfo = useNetInfo();
-  const [alreadyLoaded, setAlreadyLoaded] = useState(false);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -21,7 +21,7 @@ const Radio = ({ navigation }) => {
   }, [navigation]);
 
   useEffect(() => {
-    if (netInfo.isConnected && !alreadyLoaded) {
+    if (netInfo.isConnected) {
       webRef.current.reload();
     }
   }, [netInfo]);
@@ -29,10 +29,10 @@ const Radio = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <WebView ref={webRef} source={{ uri: Urls.STREAMING }} mediaPlaybackRequiresUserAction={false} androidLayerType={"hardware"}
-        mixedContentMode={"always"} overScrollMode={"never"} contentMode={"mobile"} scrollEnabled={false} onLoadEnd={() => setAlreadyLoaded(true)}
-        startInLoadingState={true} renderLoading={() => <View style={styles.loader}><ActivityIndicator size="large" color={Colors.RED} animating={true} /></View>} />
+        mixedContentMode={"always"} overScrollMode={"never"} contentMode={"mobile"} scrollEnabled={false}
+        startInLoadingState={true} renderLoading={() => <BouncingLoader />} allowsFullscreenVideo={true} />
       {!netInfo.isConnected &&
-        <View style={{ position: "absolute", flex: 1, height: "100%", width: "100%" }}>
+        <View style={styles.overlayNoInternet}>
           <NoInternetConnection backgroundColor={Colors.BLUE_SKY} />
         </View>
       }

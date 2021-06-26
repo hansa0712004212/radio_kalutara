@@ -1,3 +1,9 @@
+export const LOADER_1 = require("../assets/images/loader_1.png");
+export const LOADER_2 = require("../assets/images/loader_2.png");
+export const LOADER_3 = require("../assets/images/loader_3.png");
+export const LOADER_4 = require("../assets/images/loader_4.png");
+export const LOADER_5 = require("../assets/images/loader_5.png");
+export const LOADER_6 = require("../assets/images/loader_6.png");
 export const RADIO = require("../assets/images/logo_kalutara.png");
 export const YOUTUBE = require("../assets/images/logo_youtube.png");
 export const FACEBOOK = require("../assets/images/logo_facebook.png");

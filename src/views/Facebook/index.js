@@ -1,9 +1,10 @@
 import { useNetInfo } from "@react-native-community/netinfo";
 import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, BackHandler, View } from "react-native";
+import { BackHandler, View } from "react-native";
 import "react-native-gesture-handler";
 import changeNavigationBarColor from "react-native-navigation-bar-color";
 import { WebView } from "react-native-webview";
+import { BouncingLoader } from "../../components";
 import { Colors, Urls } from "../../constants";
 import { NoInternetConnection } from "../../container";
 import styles from "../commonStyles";
@@ -55,7 +56,7 @@ const Facebook = ({ navigation }) => {
           onScroll={() => webRef.current.injectJavaScript(onS)}
           overScrollMode={"never"} contentMode={"mobile"} scrollEnabled={false}
           onNavigationStateChange={navState => setCanGoBack(navState.canGoBack)}
-          startInLoadingState={true} renderLoading={() => <View style={styles.loader}><ActivityIndicator size="large" color={Colors.BLUE_FACEBOOK} animating={true} /></View>} />
+          startInLoadingState={true} renderLoading={() => <BouncingLoader />} />
         :
         <NoInternetConnection backgroundColor={Colors.BLUE_FACEBOOK} />
       }

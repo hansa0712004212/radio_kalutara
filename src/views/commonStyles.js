@@ -19,6 +19,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center"
   },
+  loaderDance: {
+    flex: 1,
+    zIndex: 8888,
+    alignSelf: "center",
+    justifyContent: "flex-end",
+    backgroundColor: Colors.WHITE
+  },
   noInternetContainer: {
     flex: 1,
     alignItems: "center",
@@ -29,6 +36,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     color: Colors.WHITE
+  },
+  overlayNoInternet: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    position: "absolute"
   }
 });
 
