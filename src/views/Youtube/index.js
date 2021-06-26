@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useNetInfo } from "@react-native-community/netinfo";
+import React, { useEffect, useRef } from "react";
 import { ActivityIndicator, View } from "react-native";
 import "react-native-gesture-handler";
 import changeNavigationBarColor from "react-native-navigation-bar-color";
 import { WebView } from "react-native-webview";
 import { Colors, Urls } from "../../constants";
+import { NoInternetConnection } from "../../container";
 import styles from "../commonStyles";
 
 const Youtube = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const webRef = useRef(null);
+  const netInfo = useNetInfo();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -30,12 +32,14 @@ const Youtube = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {isLoading && <View style={styles.loader}>
-        <ActivityIndicator size="large" color={Colors.RED} animating={true} />
-      </View>}
-      <WebView ref={webRef} source={{ uri: Urls.YOUTUBE }} injectedJavaScript={INJECTED_JAVASCRIPT}
-        onScroll={() => webRef.current.injectJavaScript(onS)}
-        overScrollMode={"never"} contentMode={"mobile"} scrollEnabled={false} onLoadEnd={() => setIsLoading(false)} />
+      {netInfo.isConnected ?
+        <WebView ref={webRef} source={{ uri: Urls.YOUTUBE }} injectedJavaScript={INJECTED_JAVASCRIPT}
+          onScroll={() => webRef.current.injectJavaScript(onS)}
+          overScrollMode={"never"} contentMode={"mobile"} scrollEnabled={false}
+          startInLoadingState={true} renderLoading={() => <View style={styles.loader}><ActivityIndicator size="large" color={Colors.RED} animating={true} /></View>} />
+        :
+        <NoInternetConnection backgroundColor={Colors.RED} />
+      }
     </View>
   );
 };
